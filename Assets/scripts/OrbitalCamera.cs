@@ -10,6 +10,8 @@ public class OrbitalCamera : MonoBehaviour
 
     private float x = 0.0f;
     private float y = 0.0f;
+    // as stack groes, increase both the yOffset and the distance (by a fraction of the yOffset)
+    [SerializeField] [Range(0f, 5.0f)] private float yOffset = 1f;
 
     void Start()
     {
@@ -27,6 +29,7 @@ public class OrbitalCamera : MonoBehaviour
         transform.rotation = Quaternion.Euler(y, x, 0);
 
         transform.RotateAround(target.position, Vector3.up, x);
-        transform.position = target.position - (transform.rotation * Vector3.forward * distance);
+        //transform.position = target.position - (transform.rotation * Vector3.forward * distance);
+        transform.position = (target.position + new Vector3(0, yOffset, 0)) - (transform.rotation * Vector3.forward * distance);
     }
 }
