@@ -25,25 +25,7 @@ public class OrbitalCamera : MonoBehaviour
         y = Mathf.Clamp(y, -80f, 80f);
 
         transform.rotation = Quaternion.Euler(y, x, 0);
-        //
-        // Summary:
-        //     Rotates the transform about axis passing through point in world coordinates by
-        //     angle degrees.
-        //
-        // Parameters:
-        //   point:
-        //
-        //   axis:
-        //
-        ////   angle:
-        //public void RotateAround(Vector3 point, Vector3 axis, float angle);
-        ////
-        //// Parameters:
-        ////   axis:
-        ////
-        ////   angle:
-        //[Obsolete("warning use Transform.Rotate instead.")]
-        //public void RotateAround(Vector3 axis, float angle);
+
         transform.RotateAround(target.position, Vector3.up, x);
         transform.position = target.position - (transform.rotation * Vector3.forward * distance);
     }
