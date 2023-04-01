@@ -11,9 +11,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] [Range(.5f, 2f)] float jumpHeight = 1.0f;
     float horizontalRotation, verticalRotation, mouseSensitivity = 5f;
     float gravityValue = -9.81f;
+    Camera cam;
 
     public void Start()
     {
+        cam = Camera.main;
         charController = GetComponent<CharacterController>();
     }
 
@@ -21,16 +23,6 @@ public class PlayerMovement : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
-
-        // cam rotation
-        horizontalRotation += mouseX;
-        verticalRotation -= mouseY;
-        verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
-
-        //transform.localRotation = Quaternion.Euler(0.0f, horizontalRotation, 0.0f);
 
         // movement
         movement = new Vector3(horizontalInput * speed, 0.0f, verticalInput * speed);
@@ -48,9 +40,22 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
 
+        // face cam forward parallel to ground
+        if (horizontalInput != 0 || verticalInput != 0)
+        {
+            // cam forward parallel to flat groun
+            // The cross product of two vectors results in a third vector which is perpendicular to the two input vectors.
+            Vector3 camForwardToFlatGround = Vector3.Cross(cam.transform.right, Vector3.up);
+            // Creates a rotation with the specified forward and upwards directions.
+            Quaternion newRotation = Quaternion.LookRotation(camForwardToFlatGround, Vector3.up);
+            transform.rotation = newRotation;
+        }
+
         //if(!isGrounded())
         playerVelocity.y += gravityValue * Time.deltaTime;
         charController.Move(playerVelocity * Time.deltaTime);
+
+
     }
 
     public bool isGrounded()

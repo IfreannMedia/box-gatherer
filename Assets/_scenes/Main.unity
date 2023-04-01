@@ -1118,6 +1118,7 @@ MonoBehaviour:
   target: {fileID: 672817784}
   distance: 5
   sensitivity: 2
+  yOffset: 1
 --- !u!1 &984311471
 GameObject:
   m_ObjectHideFlags: 0
