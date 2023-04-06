@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ObstacleHandler : MonoBehaviour
 {
@@ -24,13 +26,34 @@ public class ObstacleHandler : MonoBehaviour
             // knock onto floor
             // set destruction timer
             // Destroy after X time
+            GetComponent<BoxCollider>().enabled = false;
+            StackManager stackManager = GetComponentInParent<StackManager>();
+            stackManager.Remove(GetComponent<BoxPickup>());
             StartCoroutine(MoveAlongCurveY());
+            StartCoroutine(ImpulseForceFromCol(other));
         }
     }
 
-    IEnumerator MoveAlongCurveY()
+    private IEnumerator ImpulseForceFromCol(Collider other)
+    {
+        float duration = 0.0f;
+        Vector3 randDir = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1f, 1f));
+        while (duration <= 1.5f)
+        {
+            duration += Time.deltaTime;
+            transform.Translate(randDir * Time.deltaTime * 10f);
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    private IEnumerator MoveAlongCurveY()
     {
         bool finishedCurve = time > 0.0f && current == last;
+        if (finishedCurve)
+        {
+            // WON'T EXECUTE FOR SOME REASON
+            Debug.Log("FINISHED CURVE");
+        }
         while (!finishedCurve)
         {
             current = animCurve.Evaluate(time);
@@ -41,6 +64,10 @@ public class ObstacleHandler : MonoBehaviour
             last = current;
             yield return new WaitForEndOfFrame();
         }
-
+        // WON'T EXECUTE FOR SOME REASON
+        GetComponent<BoxCollider>().enabled = true;
+        Debug.Log("BoxCollider enabled: " + GetComponent<BoxCollider>().enabled);
+        GetComponent<BoxPickup>().enabled = true;
+        Debug.Log("BoxPickup enabled: " + GetComponent<BoxPickup>().enabled);
     }
 }
