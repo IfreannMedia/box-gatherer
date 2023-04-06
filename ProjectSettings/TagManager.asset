@@ -5,14 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - Box
+  - Obstacle
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Obstacle
   - Water
   - UI
-  - 
+  - Pickup
   - 
   - 
   - 

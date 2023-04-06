@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 playerVelocity;
     //[SerializeField] [Range(.5f, 2f)] float jumpHeight = 1.0f;
     //float horizontalRotation, verticalRotation, mouseSensitivity = 5f;
-    //float gravityValue = -9.81f;
+    float gravityValue = -9.81f;
     Camera cam;
 
     public void Start()
@@ -51,8 +51,7 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = newRotation;
         }
 
-        //if(!isGrounded())
-        //playerVelocity.y += gravityValue * Time.deltaTime;
+        playerVelocity.y += gravityValue * Time.deltaTime;
         charController.Move(playerVelocity * Time.deltaTime);
 
 
