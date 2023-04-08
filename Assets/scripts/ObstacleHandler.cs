@@ -75,18 +75,49 @@ public class ObstacleHandler : MonoBehaviour
 
     private IEnumerator MoveAlongCurveY(float groundYPos)
     {
+        //Debug.Log("groundpos = " + groundYPos);
         bool hasFinishedCurve = false;
-        //float originalY = transform.position.y;
-        float originalY = groundYPos;
+        float originalY = transform.position.y;
         float time = 0.0f;
         float current;
         float last = 0.0f;
+        // first key becomes current transform y
+        knockDownCurve.MoveKey(0, new Keyframe(knockDownCurve.keys[0].time, originalY, knockDownCurve.keys[0].inTangent, knockDownCurve.keys[0].outTangent));
+        // second key becomes current y plus 2
+        knockDownCurve.MoveKey(1, new Keyframe(knockDownCurve.keys[1].time, originalY + 2, knockDownCurve.keys[1].inTangent, knockDownCurve.keys[1].outTangent));
+        // third key becomes ground
+        knockDownCurve.MoveKey(2, new Keyframe(knockDownCurve.keys[2].time, .75f, knockDownCurve.keys[2].inTangent, knockDownCurve.keys[2].outTangent));
+        // fourth key becomes half of second
+        knockDownCurve.MoveKey(3, new Keyframe(knockDownCurve.keys[3].time, knockDownCurve.keys[1].value / 2, knockDownCurve.keys[3].inTangent, knockDownCurve.keys[3].outTangent));
+        // fifth key becomes ground
+        knockDownCurve.MoveKey(4, new Keyframe(knockDownCurve.keys[4].time, .75f, knockDownCurve.keys[4].inTangent, knockDownCurve.keys[4].outTangent));
+        // TODO didn't actually seem to set them
+        Debug.Log(knockDownCurve.keys[0].value);
+        Debug.Log(knockDownCurve.keys[1].value);
+        Debug.Log(knockDownCurve.keys[2].value);
+        Debug.Log(knockDownCurve.keys[3].value);
+        Debug.Log(knockDownCurve.keys[4].value);
+
+        //for (int i = 0; i < knockDownCurve.keys.Length; i++)
+        //{
+        //    if(knockDownCurve.keys[i].value <= 0.2f)
+        //    {
+        //        Debug.Log("setting  " + knockDownCurve.keys[i].value + "  TO " + groundYPos);
+        //        knockDownCurve.keys[i].value = groundYPos;
+        //    } else
+        //    {
+        //        Debug.Log("setting  " + knockDownCurve.keys[i].value + "  TO " + knockDownCurve.keys[i].value + transform.position.y);
+        //        knockDownCurve.keys[i].value += transform.position.y;
+        //    }
+        //}
+
         while (!hasFinishedCurve)
         {
             current = knockDownCurve.Evaluate(time);
             hasFinishedCurve = time > 0.0f && current == last;
 
-            transform.position = new Vector3(transform.position.x, originalY + current, transform.position.z);
+            transform.position = new Vector3(transform.position.x, current, transform.position.z);
+            //transform.position = new Vector3(transform.position.x, current, transform.position.z);
 
             time += Time.deltaTime;
             last = current;
