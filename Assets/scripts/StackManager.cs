@@ -34,6 +34,11 @@ public class StackManager : MonoBehaviour
         }
     }
 
+    public float GetStackOriginY()
+    {
+        return stackOrigin.position.y;
+    }
+
     private IEnumerator CloseGapInStack()
     {
         // TODO make stack invincible for X time after hit registered

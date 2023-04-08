@@ -8,16 +8,11 @@ public class ObstacleHandler : MonoBehaviour
 {
     [SerializeField] private AnimationCurve knockDownCurve;
     [SerializeField] [Range(0.5f, 8f)] private float remainActive = 4f;
-    private float time = 0.0f;
-    private float current = 0.0f;
-    private float last = 0.0f;
-    float originalY;
     float animDuration;
 
 
     private void Start()
     {
-        originalY = transform.position.y;
         animDuration = knockDownCurve.keys[knockDownCurve.keys.Length - 1].time;
     }
 
@@ -34,7 +29,7 @@ public class ObstacleHandler : MonoBehaviour
         GetComponent<BoxCollider>().enabled = false;
         StackManager stackManager = GetComponentInParent<StackManager>();
         stackManager.Remove(GetComponent<BoxPickup>());
-        StartCoroutine(MoveAlongCurveY());
+        StartCoroutine(MoveAlongCurveY(stackManager.GetStackOriginY()));
         yield return StartCoroutine(ImpulseForceFromCol());
         GetComponent<BoxCollider>().enabled = true;
         GetComponent<BoxPickup>().enabled = true;
@@ -78,9 +73,14 @@ public class ObstacleHandler : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveAlongCurveY()
+    private IEnumerator MoveAlongCurveY(float groundYPos)
     {
         bool hasFinishedCurve = false;
+        //float originalY = transform.position.y;
+        float originalY = groundYPos;
+        float time = 0.0f;
+        float current;
+        float last = 0.0f;
         while (!hasFinishedCurve)
         {
             current = knockDownCurve.Evaluate(time);
@@ -92,8 +92,11 @@ public class ObstacleHandler : MonoBehaviour
             last = current;
             yield return new WaitForEndOfFrame();
         }
-        time = 0.0f;
-        last = 0.0f;
-        current = 0.0f;
+    }
+
+    public void ResetAfterPickup()
+    {
+        StopAllCoroutines();
+        GetComponent<Renderer>().enabled = true;
     }
 }

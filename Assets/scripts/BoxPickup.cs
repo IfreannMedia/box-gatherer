@@ -9,6 +9,7 @@ public class BoxPickup : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
+            GetComponent<ObstacleHandler>().ResetAfterPickup();
             GetComponent<Rotate>().enabled = false;
             enabled = false;
             other.GetComponent<StackManager>().Push(this);
