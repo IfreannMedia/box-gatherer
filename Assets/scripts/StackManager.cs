@@ -12,9 +12,14 @@ public class StackManager : MonoBehaviour
     public void Push(BoxPickup newBox)
     {
         newBox.transform.SetParent(stackOrigin);
-        float nextYPos = stack.Count == 0 ? stackOrigin.position.y : stack[stack.Count-1].transform.position.y + newBox.transform.localScale.y + ySpacing;
+        float highestYPosInStack = stackOrigin.position.y;
+        for (int i = 0; i < stack.Count; i++)
+        {
+            if(stack[i].transform.position.y > highestYPosInStack)
+                highestYPosInStack = stack[i].transform.position.y;
+        }
+        float nextYPos = highestYPosInStack + newBox.transform.localScale.y + ySpacing;
         newBox.transform.position = new Vector3(stackOrigin.position.x, nextYPos, stackOrigin.position.z);
-        
         stack.Add(newBox);
     }
 
