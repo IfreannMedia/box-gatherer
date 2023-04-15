@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,5 +32,17 @@ public class OrbitalCamera : MonoBehaviour
         transform.RotateAround(target.position, Vector3.up, x);
         //transform.position = target.position - (transform.rotation * Vector3.forward * distance);
         transform.position = (target.position + new Vector3(0, yOffset, 0)) - (transform.rotation * Vector3.forward * distance);
+    }
+
+    public void IncreaseDistance(BoxPickup box)
+    {
+        distance += box.transform.localScale.y;
+        yOffset += box.transform.localScale.y;
+    }
+
+    public void DecreaseDistance(BoxPickup box)
+    {
+        distance -= box.transform.localScale.y;
+        yOffset -= box.transform.localScale.y;
     }
 }

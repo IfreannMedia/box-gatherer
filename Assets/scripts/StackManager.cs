@@ -26,17 +26,12 @@ public class StackManager : MonoBehaviour
         float nextYPos = highestYPosInStack + newBox.transform.localScale.y + ySpacing;
         newBox.transform.position = new Vector3(stackOrigin.position.x, nextYPos, stackOrigin.position.z);
         stack.Add(newBox);
-        UpdateCamera(newBox);
-    }
-
-    private void UpdateCamera(BoxPickup box)
-    {
-        orbitalCam.distance += box.transform.localScale.y;
-        orbitalCam.yOffset += box.transform.localScale.y;
+        orbitalCam.IncreaseDistance(newBox);
     }
 
     public void Remove(BoxPickup boxPickup)
     {
+        orbitalCam.DecreaseDistance(boxPickup);
         int index = stack.IndexOf(boxPickup);
         if (index >= 0)
         {
