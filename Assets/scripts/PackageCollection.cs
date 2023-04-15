@@ -7,7 +7,7 @@ public class PackageCollection : MonoBehaviour
 
     public AnimationCurve boxMove;
     [SerializeField] private float speed = .5f;
-    int collected = 0;
+    [SerializeField] private ScoreManager scoreManager;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,7 +25,8 @@ public class PackageCollection : MonoBehaviour
                 boxPickups[i].GetComponent<Rotate>().enabled = false;
                 StartCoroutine(moveBoxToCollection(boxPickups[i]));
                 // TODO add package to collection counter
-                collected++;
+                scoreManager.add(boxPickups[i].score);
+                scoreManager.RenderScoreText();
             }
             // which should also disable it's trigger collider
         }

@@ -75,7 +75,6 @@ public class ObstacleHandler : MonoBehaviour
 
     private IEnumerator MoveAlongCurveY(float groundYPos)
     {
-        //Debug.Log("groundpos = " + groundYPos);
         bool hasFinishedCurve = false;
         float originalY = transform.position.y;
         float time = 0.0f;
@@ -91,25 +90,6 @@ public class ObstacleHandler : MonoBehaviour
         knockDownCurve.MoveKey(3, new Keyframe(knockDownCurve.keys[3].time, knockDownCurve.keys[1].value / 2, knockDownCurve.keys[3].inTangent, knockDownCurve.keys[3].outTangent));
         // fifth key becomes ground
         knockDownCurve.MoveKey(4, new Keyframe(knockDownCurve.keys[4].time, .75f, knockDownCurve.keys[4].inTangent, knockDownCurve.keys[4].outTangent));
-        // TODO didn't actually seem to set them
-        Debug.Log(knockDownCurve.keys[0].value);
-        Debug.Log(knockDownCurve.keys[1].value);
-        Debug.Log(knockDownCurve.keys[2].value);
-        Debug.Log(knockDownCurve.keys[3].value);
-        Debug.Log(knockDownCurve.keys[4].value);
-
-        //for (int i = 0; i < knockDownCurve.keys.Length; i++)
-        //{
-        //    if(knockDownCurve.keys[i].value <= 0.2f)
-        //    {
-        //        Debug.Log("setting  " + knockDownCurve.keys[i].value + "  TO " + groundYPos);
-        //        knockDownCurve.keys[i].value = groundYPos;
-        //    } else
-        //    {
-        //        Debug.Log("setting  " + knockDownCurve.keys[i].value + "  TO " + knockDownCurve.keys[i].value + transform.position.y);
-        //        knockDownCurve.keys[i].value += transform.position.y;
-        //    }
-        //}
 
         while (!hasFinishedCurve)
         {
