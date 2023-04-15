@@ -8,7 +8,12 @@ public class StackManager : MonoBehaviour
     List<BoxPickup> stack = new List<BoxPickup>();
     [SerializeField] private Transform stackOrigin;
     private float ySpacing = 0.10f;
+    private OrbitalCamera orbitalCam;
 
+    private void Start()
+    {
+        orbitalCam = GetComponentInChildren<OrbitalCamera>();
+    }
     public void Push(BoxPickup newBox)
     {
         newBox.transform.SetParent(stackOrigin);
@@ -21,6 +26,13 @@ public class StackManager : MonoBehaviour
         float nextYPos = highestYPosInStack + newBox.transform.localScale.y + ySpacing;
         newBox.transform.position = new Vector3(stackOrigin.position.x, nextYPos, stackOrigin.position.z);
         stack.Add(newBox);
+        UpdateCamera(newBox);
+    }
+
+    private void UpdateCamera(BoxPickup box)
+    {
+        orbitalCam.distance += box.transform.localScale.y;
+        orbitalCam.yOffset += box.transform.localScale.y;
     }
 
     public void Remove(BoxPickup boxPickup)

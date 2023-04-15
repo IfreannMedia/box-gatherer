@@ -11,7 +11,7 @@ public class OrbitalCamera : MonoBehaviour
     private float x = 0.0f;
     private float y = 0.0f;
     // as stack groes, increase both the yOffset and the distance (by a fraction of the yOffset)
-    [SerializeField] [Range(0f, 5.0f)] private float yOffset = 1f;
+    [SerializeField] [Range(0f, 10.0f)] public float yOffset = 1f;
 
     void Start()
     {
