@@ -5,6 +5,8 @@ using UnityEngine;
 public class BoxPickup : MonoBehaviour
 {
 
+    public readonly int score = 25;
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.tag.Equals("Player"))

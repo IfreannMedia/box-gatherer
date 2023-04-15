@@ -34,6 +34,11 @@ public class StackManager : MonoBehaviour
         }
     }
 
+    public List<BoxPickup> getStack()
+    {
+        return stack;
+    }
+
     public float GetStackOriginY()
     {
         return stackOrigin.position.y;
