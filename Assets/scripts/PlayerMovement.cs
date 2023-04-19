@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,8 +6,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] [Range(0.5f, 10.0f)] private float speed = 5f;
     Vector3 movement;
     Vector3 playerVelocity;
-    //[SerializeField] [Range(.5f, 2f)] float jumpHeight = 1.0f;
-    //float horizontalRotation, verticalRotation, mouseSensitivity = 5f;
     float gravityValue = -9.81f;
     Camera cam;
 
@@ -27,18 +23,17 @@ public class PlayerMovement : MonoBehaviour
         // movement
         movement = new Vector3(horizontalInput * speed, 0.0f, verticalInput * speed);
         movement = transform.rotation * movement;
-        charController.Move(movement * Time.deltaTime);
 
-        // jumping
+        // gravity
         if (isGrounded() && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
         }
-        // Changes the height position of the player..
-        //if (Input.GetButtonDown("Jump") && isGrounded())
-        //{
-        //    playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        //}
+
+
+        playerVelocity.y += gravityValue * Time.deltaTime;
+        movement.y = playerVelocity.y;
+        charController.Move(movement * Time.deltaTime);
 
         // face cam forward parallel to ground
         if (horizontalInput != 0 || verticalInput != 0)
@@ -49,12 +44,8 @@ public class PlayerMovement : MonoBehaviour
             // Creates a rotation with the specified forward and upwards directions.
             Quaternion newRotation = Quaternion.LookRotation(camForwardToFlatGround, Vector3.up);
             transform.rotation = newRotation;
+
         }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        charController.Move(playerVelocity * Time.deltaTime);
-
-
     }
 
     public bool isGrounded()

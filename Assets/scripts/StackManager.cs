@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +11,7 @@ public class StackManager : MonoBehaviour
 
     private void Start()
     {
-        orbitalCam = GetComponentInChildren<OrbitalCamera>();
+        orbitalCam = Camera.main.GetComponent<OrbitalCamera>();
     }
     public void Push(BoxPickup newBox)
     {
