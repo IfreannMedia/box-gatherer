@@ -24,7 +24,6 @@ public class PackageCollection : MonoBehaviour
                 scoreManager.add(boxPickups[i].score);
                 scoreManager.RenderScoreText();
                 stackManager.Remove(boxPickups[i]);
-
             }
         }
 
