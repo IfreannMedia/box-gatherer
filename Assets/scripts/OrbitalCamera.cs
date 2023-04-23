@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class OrbitalCamera : MonoBehaviour
@@ -6,7 +7,7 @@ public class OrbitalCamera : MonoBehaviour
     public Transform target;
     public float distance = 5.0f;
     public float sensitivity = 2.0f;
-
+    public bool yInvert = false;
     private float x = 0.0f;
     private float y = 0.0f;
 
@@ -26,7 +27,7 @@ public class OrbitalCamera : MonoBehaviour
     void LateUpdate()
     {
         x = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
-        y = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+        y = Input.GetAxis("Mouse Y") * (yInvert ? -1: 1) * sensitivity * Time.deltaTime;
 
         if (yRotated + y > maxYRotation)
             y = maxYRotation - yRotated;
@@ -41,12 +42,28 @@ public class OrbitalCamera : MonoBehaviour
 
     public void IncreaseDistance(BoxPickup box)
     {
+        // TODO see if I can find a way to make this smoother
+        //StartCoroutine(SmoothlyAdjustCamDistance(distance+box.transform.localScale.y, yOffset + box.transform.localScale.y));
         distance += box.transform.localScale.y;
         yOffset += box.transform.localScale.y;
     }
 
+    //private IEnumerator SmoothlyAdjustCamDistance(float targetDistance, float targetYOffset)
+    //{
+    //    float timer = 0.0f;
+    //    while(timer < 1)
+    //    {
+    //        distance = Mathf.Lerp(distance, targetDistance, timer);
+    //        yOffset = Mathf.Lerp(yOffset, targetYOffset, timer);
+    //        timer += Time.deltaTime;
+    //        yield return new WaitForEndOfFrame();
+    //    }
+    //}
+
     public void DecreaseDistance(BoxPickup box)
     {
+        //StartCoroutine(SmoothlyAdjustCamDistance(distance - box.transform.localScale.y, yOffset - box.transform.localScale.y));
+
         distance -= box.transform.localScale.y;
         yOffset -= box.transform.localScale.y;
     }
