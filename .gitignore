@@ -73,3 +73,7 @@ crashlytics-build.properties
 
 # ignore TMP
 /[Aa]ssets/[Tt]extMesh Pro/*
+
+# ignore Ultimate Game Music COlleciton
+/[Aa]ssets/Ultimate Game Music Collection/*
+/[Aa]ssets/Ultimate Game Music Collection.meta
