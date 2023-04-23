@@ -11,6 +11,8 @@ public class BoxPickup : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
+            GetComponent<AudioSource>().pitch = Random.Range(.9f, 1.1f);
+            GetComponent<AudioSource>().Play();
             GetComponent<ObstacleHandler>().ResetAfterPickup();
             GetComponent<Rotate>().enabled = false;
             enabled = false;

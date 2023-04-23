@@ -9,6 +9,7 @@ public class ObstacleHandler : MonoBehaviour
     [SerializeField] private AnimationCurve knockDownCurve;
     [SerializeField] [Range(0.5f, 8f)] private float remainActive = 4f;
     float animDuration;
+    [SerializeField] private AudioSource boxHit;
 
 
     private void Start()
@@ -26,6 +27,8 @@ public class ObstacleHandler : MonoBehaviour
 
     private IEnumerator handleObstableCollision()
     {
+        boxHit.pitch = Random.Range(.6f, 1.1f);
+        boxHit.Play();
         GetComponent<BoxCollider>().enabled = false;
         StackManager stackManager = GetComponentInParent<StackManager>();
         stackManager.Remove(GetComponent<BoxPickup>());
