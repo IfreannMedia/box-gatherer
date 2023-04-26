@@ -8,10 +8,12 @@ public class StackManager : MonoBehaviour
     [SerializeField] private Transform stackOrigin;
     private float ySpacing = 0.10f;
     private OrbitalCamera orbitalCam;
+    private Animator animator;
 
     private void Start()
     {
         orbitalCam = Camera.main.GetComponent<OrbitalCamera>();
+        animator = GetComponent<Animator>();
     }
     public void Push(BoxPickup newBox)
     {
@@ -26,6 +28,7 @@ public class StackManager : MonoBehaviour
         newBox.transform.position = new Vector3(stackOrigin.position.x, nextYPos, stackOrigin.position.z);
         stack.Add(newBox);
         orbitalCam.IncreaseDistance(newBox);
+        animator.SetBool("hasBoxes", stack.Count > 0);
     }
 
     public void Remove(BoxPickup boxPickup)
@@ -38,6 +41,7 @@ public class StackManager : MonoBehaviour
             boxPickup.transform.SetParent(null);
             StartCoroutine(CloseGapInStack());
         }
+        animator.SetBool("hasBoxes", stack.Count > 0);
     }
 
     public List<BoxPickup> getStack()

@@ -8,11 +8,13 @@ public class PlayerMovement : MonoBehaviour
     Vector3 playerVelocity;
     float gravityValue = -9.81f;
     Camera cam;
+    private Animator animator;
 
     public void Start()
     {
         cam = Camera.main;
         charController = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void Update()
@@ -46,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = newRotation;
 
         }
+
+        animator.SetFloat("velocity", charController.velocity.magnitude);
     }
 
     public bool isGrounded()
