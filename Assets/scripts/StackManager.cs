@@ -19,7 +19,7 @@ public class StackManager : MonoBehaviour
         float highestYPosInStack = stackOrigin.position.y;
         for (int i = 0; i < stack.Count; i++)
         {
-            if(stack[i].transform.position.y > highestYPosInStack)
+            if(stack[i] != null && stack[i].transform.position.y > highestYPosInStack)
                 highestYPosInStack = stack[i].transform.position.y;
         }
         float nextYPos = highestYPosInStack + newBox.transform.localScale.y + ySpacing;
