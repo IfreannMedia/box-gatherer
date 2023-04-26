@@ -77,3 +77,7 @@ crashlytics-build.properties
 # ignore Ultimate Game Music COlleciton
 /[Aa]ssets/Ultimate Game Music Collection/*
 /[Aa]ssets/Ultimate Game Music Collection.meta
+
+# ignore blocky people assets
+/[Aa]ssets/Snowconesolid Assets/*
+/[Aa]ssets/Snowconesolid Assets.meta
