@@ -13,7 +13,7 @@ public class StackManager : MonoBehaviour
     private void Start()
     {
         orbitalCam = Camera.main.GetComponent<OrbitalCamera>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
     public void Push(BoxPickup newBox)
     {

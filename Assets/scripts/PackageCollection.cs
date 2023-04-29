@@ -20,7 +20,6 @@ public class PackageCollection : MonoBehaviour
                 boxPickups[i].GetComponent<BoxCollider>().enabled = false;
                 boxPickups[i].GetComponent<Rotate>().enabled = false;
                 StartCoroutine(moveBoxToCollection(boxPickups[i]));
-                // TODO add package to collection counter
                 scoreManager.add(boxPickups[i].score);
                 scoreManager.RenderScoreText();
                 stackManager.Remove(boxPickups[i]);
@@ -47,7 +46,6 @@ public class PackageCollection : MonoBehaviour
                 hasFinishedCurve = direction.magnitude < 0.1f;
                 yield return new WaitForEndOfFrame();
             }
-            Debug.Log("coroutine finished");
         }
     }
 }
