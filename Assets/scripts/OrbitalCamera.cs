@@ -16,12 +16,15 @@ public class OrbitalCamera : MonoBehaviour
     [SerializeField] private float maxYRotation = 80f;
     [SerializeField] private float minYRotation = -20f;
     float yRotated = 0.0f;
+    private float originalDistance, originalOffset;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         transform.position = (target.position + new Vector3(0, yOffset, 0));
         transform.rotation = target.rotation;
+        originalDistance = distance;
+        originalOffset = yOffset;
     }
 
     void LateUpdate()
@@ -42,10 +45,11 @@ public class OrbitalCamera : MonoBehaviour
 
     public void IncreaseDistance(BoxPickup box)
     {
+        Debug.Log(originalDistance);
         // TODO see if I can find a way to make this smoother
         //StartCoroutine(SmoothlyAdjustCamDistance(distance+box.transform.localScale.y, yOffset + box.transform.localScale.y));
-        distance += box.transform.localScale.y;
-        yOffset += box.transform.localScale.y;
+        distance = Mathf.Max(originalDistance, distance + box.transform.localScale.y);
+        yOffset = Mathf.Max(originalOffset, yOffset + box.transform.localScale.y);
     }
 
     //private IEnumerator SmoothlyAdjustCamDistance(float targetDistance, float targetYOffset)
@@ -63,8 +67,7 @@ public class OrbitalCamera : MonoBehaviour
     public void DecreaseDistance(BoxPickup box)
     {
         //StartCoroutine(SmoothlyAdjustCamDistance(distance - box.transform.localScale.y, yOffset - box.transform.localScale.y));
-
-        distance -= box.transform.localScale.y;
-        yOffset -= box.transform.localScale.y;
+        distance = Mathf.Max(originalDistance, distance - box.transform.localScale.y);
+        yOffset = Mathf.Max(originalOffset, yOffset - box.transform.localScale.y);
     }
 }
