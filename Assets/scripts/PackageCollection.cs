@@ -7,12 +7,12 @@ public class PackageCollection : MonoBehaviour
     public AnimationCurve boxMove;
     [SerializeField] private float speed = .5f;
     [SerializeField] private ScoreManager scoreManager;
-    private Transform firstTargetPos;
+    [SerializeField] private Transform firstTargetPos;
 
     private void OnTriggerEnter(Collider other)
     {
-        Transform childTransform = GetComponentInChildren<Transform>();
-        firstTargetPos = childTransform;
+        //Transform childTransform = GetComponentInChildren<Transform>();
+        //firstTargetPos = childTransform;
         if (other.tag == "Player")
         {
             scoreManager.GetComponent<PauseManager>().enabled = false;
@@ -27,7 +27,7 @@ public class PackageCollection : MonoBehaviour
             StackManager stackManager = other.GetComponent<StackManager>();
             List<BoxPickup> boxPickups = stackManager.getStack();
             StartCoroutine(AdjustCamPosition(scoreCam, boxPickups.Count));
-            Vector3 targetPos = firstTargetPos.position + new Vector3(0, 0, -2f);
+            Vector3 targetPos = firstTargetPos.position + new Vector3(0, 0, 0f);
             for (int i = boxPickups.Count - 1; i > -1; i--)
             {
                 boxPickups[i].transform.SetParent(transform);
