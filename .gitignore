@@ -84,3 +84,7 @@ crashlytics-build.properties
 
 # ignore textures.com textures
 /[Aa]ssets/materials/textures/*
+
+# ignore box asset
+/[Aa]ssets/PolyWorkshop/*
+/[Aa]ssets/PolyWorkshop.meta
