@@ -15,6 +15,8 @@ public class PackageCollection : MonoBehaviour
         firstTargetPos = childTransform;
         if (other.tag == "Player")
         {
+            scoreManager.GetComponent<PauseManager>().enabled = false;
+            scoreManager.EnlargeScoreText(2f);
             // deactivate main cam and player controls, activate child cam
             other.GetComponent<PlayerMovement>().enabled = false;
             other.GetComponentInChildren<Animator>().enabled = false;

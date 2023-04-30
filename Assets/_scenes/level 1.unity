@@ -7829,6 +7829,50 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1188334058}
+    - target: {fileID: 6943002763500313952, guid: cf5118285a689be4aa3f9e752624b873, type: 3}
+      propertyPath: m_Name
+      value: scoreText
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943002763500313966, guid: cf5118285a689be4aa3f9e752624b873, type: 3}
+      propertyPath: m_fontSize
+      value: 261.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943002763500313966, guid: cf5118285a689be4aa3f9e752624b873, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 261.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943002763500313966, guid: cf5118285a689be4aa3f9e752624b873, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943002763500313966, guid: cf5118285a689be4aa3f9e752624b873, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943002763500313967, guid: cf5118285a689be4aa3f9e752624b873, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 155.3351
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943002763500313967, guid: cf5118285a689be4aa3f9e752624b873, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 70.5602
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943002763500313967, guid: cf5118285a689be4aa3f9e752624b873, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943002763500313967, guid: cf5118285a689be4aa3f9e752624b873, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943002763500313967, guid: cf5118285a689be4aa3f9e752624b873, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943002763500313967, guid: cf5118285a689be4aa3f9e752624b873, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6943002763544710947, guid: cf5118285a689be4aa3f9e752624b873, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
