@@ -7,26 +7,37 @@ public class PackageCollection : MonoBehaviour
     public AnimationCurve boxMove;
     [SerializeField] private float speed = .5f;
     [SerializeField] private ScoreManager scoreManager;
+    private Vector3 firstTargetPos;
 
     private void OnTriggerEnter(Collider other)
     {
+        Transform childTransform = GetComponentInChildren<Transform>();
+        firstTargetPos = childTransform.position;
         if (other.tag == "Player")
         {
             StackManager stackManager = other.GetComponent<StackManager>();
             List<BoxPickup> boxPickups = stackManager.getStack();
+            Vector3 targetPos = firstTargetPos + new Vector3(0,0,2);
             for (int i = boxPickups.Count - 1; i > -1; i--)
             {
-                boxPickups[i].transform.SetParent(null);
+                boxPickups[i].transform.SetParent(transform);
                 boxPickups[i].GetComponent<BoxCollider>().enabled = false;
                 boxPickups[i].GetComponent<Rotate>().enabled = false;
-                StartCoroutine(moveBoxToCollection(boxPickups[i]));
+
+                StartCoroutine(moveBoxToCollection(boxPickups[i], targetPos));
                 scoreManager.add(boxPickups[i].score);
                 scoreManager.RenderScoreText();
                 stackManager.Remove(boxPickups[i]);
+
+                if (i % 3 == 0)
+                    targetPos = targetPos + new Vector3(0, 1, -4);
+                else
+                    targetPos = targetPos + new Vector3(0, 0, 2f);
+
             }
         }
 
-        IEnumerator moveBoxToCollection(BoxPickup box)
+        IEnumerator moveBoxToCollection(BoxPickup box, Vector3 targetPos)
         {
             bool hasFinishedCurve = false;
             float time = 0.0f;
@@ -36,7 +47,7 @@ public class PackageCollection : MonoBehaviour
             Vector3 translationVector;
             while (!hasFinishedCurve)
             {
-                direction = transform.position - box.transform.position;
+                direction = targetPos - box.transform.position;
                 distance = direction.magnitude;
                 normalizedDirection = direction / distance;
                 translationVector = normalizedDirection * speed * boxMove.Evaluate(time) * Time.deltaTime;
