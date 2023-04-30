@@ -6,7 +6,7 @@ public class LoadNextLevel : MonoBehaviour
 
     public void LoadNext()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1).buildIndex);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public bool hasNextLevel()

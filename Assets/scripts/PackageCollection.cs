@@ -22,6 +22,7 @@ public class PackageCollection : MonoBehaviour
             other.GetComponentInChildren<Animator>().enabled = false;
             Camera scoreCam = GetComponentInChildren<Camera>(true);
             scoreCam.enabled = true;
+            Camera.main.GetComponent<AudioListener>().enabled = false;
             Camera.main.enabled = false;
             StackManager stackManager = other.GetComponent<StackManager>();
             List<BoxPickup> boxPickups = stackManager.getStack();
@@ -44,7 +45,7 @@ public class PackageCollection : MonoBehaviour
                     targetPos = targetPos + new Vector3(0, 0, -2f);
             }
 
-            StartCoroutine(LoadNextLevelDelayed(4f));
+            StartCoroutine(LoadNextLevelDelayed(5f));
         }
 
         IEnumerator moveBoxToCollection(BoxPickup box, Vector3 targetPos)
