@@ -45,7 +45,6 @@ public class OrbitalCamera : MonoBehaviour
 
     public void IncreaseDistance(BoxPickup box)
     {
-        Debug.Log(originalDistance);
         // TODO see if I can find a way to make this smoother
         //StartCoroutine(SmoothlyAdjustCamDistance(distance+box.transform.localScale.y, yOffset + box.transform.localScale.y));
         distance = Mathf.Max(originalDistance, distance + box.transform.localScale.y);
