@@ -43,6 +43,8 @@ public class PackageCollection : MonoBehaviour
                 else
                     targetPos = targetPos + new Vector3(0, 0, -2f);
             }
+
+            StartCoroutine(LoadNextLevelDelayed(4f));
         }
 
         IEnumerator moveBoxToCollection(BoxPickup box, Vector3 targetPos)
@@ -80,6 +82,18 @@ public class PackageCollection : MonoBehaviour
                 scoreCam.transform.position = Vector3.MoveTowards(scoreCam.transform.position, targetVector, 15 * Time.deltaTime);
                 timer += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
+            }
+        }
+        IEnumerator LoadNextLevelDelayed(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            LoadNextLevel loadNextLevel = scoreManager.GetComponent<LoadNextLevel>();
+            if (loadNextLevel.hasNextLevel())
+            {
+                loadNextLevel.LoadNext();
+            } else
+            {
+                scoreManager.GetComponent<QuitGame>().QuitToMainMenu();
             }
         }
     }
