@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovingObstacle : MonoBehaviour
 {
     [SerializeField] private Vector3 targetMoveDir;
-    [SerializeField] private float duration = 2.0f, waitTime = 2.0f;
+    [SerializeField] private float duration = 2.0f, waitTime = 2.0f, initialDelay = 0.0f;
     private float speed = 0.5f, time = 0.0f;
     private Vector3 startPos, endPos, direction, currentTarget;
     private void Start()
@@ -20,6 +20,7 @@ public class MovingObstacle : MonoBehaviour
 
     IEnumerator moveObstacle()
     {
+        yield return new WaitForSeconds(initialDelay);
         while (true)
         {
             transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);

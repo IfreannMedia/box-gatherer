@@ -9,6 +9,7 @@ public class PauseManager : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1.0f;
         pauseMenu.SetActive(false);
     }
     void Update()

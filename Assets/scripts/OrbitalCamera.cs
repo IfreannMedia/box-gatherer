@@ -25,6 +25,7 @@ public class OrbitalCamera : MonoBehaviour
         transform.rotation = target.rotation;
         originalDistance = distance;
         originalOffset = yOffset;
+        transform.RotateAround(target.position, transform.right, 15);
     }
 
     void LateUpdate()
@@ -68,5 +69,15 @@ public class OrbitalCamera : MonoBehaviour
         //StartCoroutine(SmoothlyAdjustCamDistance(distance - box.transform.localScale.y, yOffset - box.transform.localScale.y));
         distance = Mathf.Max(originalDistance, distance - box.transform.localScale.y);
         yOffset = Mathf.Max(originalOffset, yOffset - box.transform.localScale.y);
+    }
+
+    public void SetSensitivity(float target)
+    {
+        sensitivity = target;
+    }
+
+    public void ToggleInvert()
+    {
+        yInvert = !yInvert;
     }
 }
